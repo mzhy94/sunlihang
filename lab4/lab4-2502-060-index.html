@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>春韵-数字展销平台</title>
+    <link rel="stylesheet" href="css/lab4-2502-060-index.css">
+</head>
+<body>
+
+<div class="login-wrapper" id="loginWrap">
+    <div class="login-modal" id="loginModal">
+        <div class="login-box">
+            <div class="login-header">
+                <span class="login-tab active" onclick="changeTab('login')">密码登录</span>
+                <span class="line">|</span>
+                <span class="login-tab" onclick="changeTab('reg')">立即注册</span>
+            </div>
+            <div class="login-form" id="loginForm">
+                <input type="text" id="loginName" placeholder="用户名">
+                <input type="password" id="loginPwd" placeholder="密码">
+                <button class="login-btn" onclick="login()">登录</button>
+                <p id="loginMsg"></p>
+            </div>
+            <div class="login-form hide" id="regForm">
+                <input type="text" id="regName" placeholder="设置用户名">
+                <input type="password" id="regPwd" placeholder="设置密码">
+                <button class="login-btn" onclick="register()">注册</button>
+                <p id="regMsg"></p>
+            </div>
+            <span class="close" onclick="closeLogin()">&times;</span>
+        </div>
+    </div>
+</div>
+
+<header class="header">
+    <div class="logo">
+        <img src="img/logo.png" alt="网站Logo">
+    </div>
+    <nav class="nav">
+        <ul>
+            <li><a href="javascript:openLogin()">登录</a></li>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">图书分类</a></li>
+            <li><a href="#">新品上市</a></li>
+            <li><a href="#">促销活动</a></li>
+            <li><a href="#">关于我们</a></li>
+            <li class="icon-item">
+                <img src="img/search.jpg" alt="搜索" class="nav-icon search-icon">
+            </li>
+            <li class="icon-item">
+                <img src="img/cart.jpg" alt="购物车" class="nav-icon cart-icon">
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<div class="container">
+    <aside class="left-sidebar">
+        <h3>图书分类</h3>
+        <ul>
+            <li><a href="#">计算机类</a></li>
+            <li><a href="#">文学小说</a></li>
+            <li><a href="#">历史传记</a></li>
+            <li><a href="#">少儿读物</a></li>
+            <li><a href="#">生活百科</a></li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <section class="banner">
+            <div class="banner-wrap">
+                <div class="banner-list">
+                    <img src="img/banner1.png" alt="轮播图1">
+                    <img src="img/banner2.png" alt="轮播图2">
+                    <img src="img/banner3.png" alt="轮播图3">
+                </div>
+            </div>
+        </section>
+
+        <section class="hot-books">
+            <h2>热门图书</h2>
+            <div class="book-list">
+                <div class="book-item">
+                    <img src="img/book1.jpg" alt="Java从入门到精通">
+                    <p>Java从入门到精通</p>
+                    <div class="hover-tip">立即购买</div>
+                </div>
+                <div class="book-item">
+                    <img src="img/book2.jpg" alt="Python编程实战">
+                    <p>Python编程实战</p>
+                    <div class="hover-tip">立即购买</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="new-books">
+            <h2>新书上架</h2>
+            <table>
+                <tr>
+                    <th>书名</th>
+                    <th>价格</th>
+                    <th>出版社</th>
+                </tr>
+                <tr>
+                    <td>深度学习入门</td>
+                    <td>79.00</td>
+                    <td>机械工业出版社</td>
+                </tr>
+                <tr>
+                    <td>Web前端开发</td>
+                    <td>69.00</td>
+                    <td>人民邮电出版社</td>
+                </tr>
+            </table>
+        </section>
+    </main>
+
+    <aside class="right-sidebar">
+        <div class="ad-box">
+            <img src="img/ad.png" alt="促销广告">
+        </div>
+    </aside>
+</div>
+
+<footer class="footer">
+    <p> 春韵数字展销平台</p>
+</footer>
+
+<script>
+function openLogin() {
+    document.getElementById("loginWrap").style.display = "block";
+}
+function closeLogin() {
+    document.getElementById("loginWrap").style.display = "none";
+}
+function changeTab(typ) {
+    document.getElementById("loginForm").classList.add("hide");
+    document.getElementById("regForm").classList.add("hide");
+    if (typ == "login") {
+        document.getElementById("loginForm").classList.remove("hide");
+    } else {
+        document.getElementById("regForm").classList.remove("hide");
+    }
+}
+function register() {
+    let n = document.getElementById("regName").value;
+    let p = document.getElementById("regPwd").value;
+    if (!n || !p) {
+        document.getElementById("regMsg").innerText = "不能为空";
+        return;
+    }
+    localStorage.setItem("user", n);
+    localStorage.setItem("pwd", p);
+    document.getElementById("regMsg").innerText = "注册成功！请登录";
+}
+function login() {
+    let n = document.getElementById("loginName").value;
+    let p = document.getElementById("loginPwd").value;
+    let user = localStorage.getItem("user");
+    let pwd = localStorage.getItem("pwd");
+    if (n == user && p == pwd) {
+        document.getElementById("loginMsg").innerText = "登录成功！";
+        setTimeout(closeLogin, 800);
+    } else {
+        document.getElementById("loginMsg").innerText = "账号或密码错误";
+    }
+}
+</script>
+
+</body>
+</html>
